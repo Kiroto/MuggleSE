@@ -1,4 +1,5 @@
 import React from "react";
+import SearchResult from "./SearchResult";
 import "./common.css";
 
 class SearchResults extends React.Component {
@@ -29,29 +30,7 @@ class SearchResults extends React.Component {
                     </div>
                     <hr />
                     <div class="searchResults vflex">
-                        <div class="result">
-                            <div class="resultUrl">
-                                <span class="rootPage">
-                                    <a href="https://www.google.com">
-                                        www.exxample.com
-                                    </a>
-                                </span>
-                                <span class="subpage">
-                                    <a href="https://www.google.com/search">
-                                        /search
-                                    </a>
-                                </span>
-                            </div>
-                            <a
-                                class="resultTitle"
-                                href="https://www.google.com"
-                            >
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
+                        <SearchResult path="https://www.google.com/search" title="Google" description="Google search engine!"/>
                         <div class="result">
                             <div class="resultUrl">www.exxample.com</div>
                             <a class="resultTitle" href="www.example.com">
