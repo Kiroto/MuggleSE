@@ -227,10 +227,28 @@ input {
     -moz-border-radius: 7px;
     -ms-border-radius: 7px;
     -o-border-radius: 7px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .page.current {
     background-color: indigo;
     color: white;
+}
+
+.page.dots {
+    background-color:#11001155;
+    cursor: default;
+}
+
+.page.back,
+.page.next {
+    background-color: rgb(76, 0, 130, 0.5);
+
+}
+
+.page.back:hover,
+.page.next:hover {
+    background-color: rgb(76, 0, 130, 0.8);
 
 }

@@ -2,6 +2,7 @@ import React from "react";
 import SearchResult from "./SearchResult";
 import doSearch from "./backend/searchfunctions";
 import "./common.css";
+import Pagination from "./Pagination";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -43,15 +44,7 @@ class SearchResults extends React.Component {
                     <hr />
                     <div class="searchResults vflex">{searchResults}</div>
                 </div>
-                <div class="pagination">
-                    <div class="back">Back</div>
-                    <div class="page current">1</div>
-                    <div class="page">2</div>
-                    <div class="page">3</div>
-                    <div class="dots">...</div>
-                    <div class="page">42</div>
-                    <div class="next">Next</div>
-                </div>
+                <Pagination maxPages={backendResults.pages} currentPage={params.p} />
                 <div class="hflex botbar">Bottom bar</div>
             </div>
         );
