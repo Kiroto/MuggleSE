@@ -57,7 +57,8 @@ h4 {
 }
 
 html,
-body {
+body,
+div#root {
     height: 100%;
     margin: 0;
     display: flex;

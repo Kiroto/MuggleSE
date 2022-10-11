@@ -7,7 +7,6 @@ class SearchResult extends React.Component {
         this.state = {path: path, title: title, description: description}
     }
     render() {
-        const paths = []
         const basePath = this.state.path
         const bits = basePath.substring(basePath.indexOf("/")+2).split("/").join(" > ")
         return (
