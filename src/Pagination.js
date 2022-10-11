@@ -2,8 +2,6 @@ import React from "react";
 import updateQueryStringParameter from "./utils";
 import "./common.css";
 
-const paginationPadding = 2;
-
 class Pagination extends React.Component {
     constructor({ maxPages, currentPage }) {
         super();
