@@ -25,12 +25,12 @@ const doSearch = (query, page) => {
         pages: 1,
         results: [
         {
-            path: "https://www.google.com",
+            path: "https://www.google.com/search",
             title: "Google",
             description: "Look for your website in google!",
         },
         {
-            path: "https://www.kongregate.com",
+            path: "https://www.kongregate.com/games/gfdg",
             title: "Kongregate",
             description: "Play your favourite flash games!",
         },

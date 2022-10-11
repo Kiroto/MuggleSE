@@ -7,14 +7,14 @@ class SearchResult extends React.Component {
         this.state = {path: path, title: title, description: description}
     }
     render() {
+        const paths = []
+        const basePath = this.state.path
+        const bits = basePath.substring(basePath.indexOf("/")+2).split("/").join(" > ")
         return (
             <div class="result">
                 <div class="resultUrl">
                     <span class="rootPage">
-                        <a href={this.state.path}>{this.state.path}</a>
-                    </span>
-                    <span class="subpage">
-                        <a href={this.state.path}>{this.state.path}</a>
+                        <a href={this.state.path}>{bits}</a>
                     </span>
                 </div>
                 <a class="resultTitle" href={this.state.path}>
