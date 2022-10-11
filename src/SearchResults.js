@@ -1,16 +1,28 @@
 import React from "react";
 import SearchResult from "./SearchResult";
+import doSearch from "./backend/searchfunctions";
 import "./common.css";
 
 class SearchResults extends React.Component {
     constructor(props) {
-        super()
-        const params = new URLSearchParams(window.location.search);
-        console.log(window.location)
-        console.log(this);
+        super();
     }
 
     render() {
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+        const backendResults = doSearch(params.q, params.p)
+        const searchResults = backendResults.results.map((info, idx) => {
+            return (
+                <SearchResult
+                    path={info.path}
+                    title={info.title}
+                    description={info.description}
+                    key={idx}
+                />
+            );
+        });
         return (
             <div class="vflex fgrow">
                 <div class="topbar"></div>
@@ -29,180 +41,7 @@ class SearchResults extends React.Component {
                         />
                     </div>
                     <hr />
-                    <div class="searchResults vflex">
-                        <SearchResult path="https://www.google.com/search" title="Google" description="Google search engine!"/>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                        <div class="result">
-                            <div class="resultUrl">www.exxample.com</div>
-                            <a class="resultTitle" href="www.example.com">
-                                ExampleTitle
-                            </a>
-                            <div class="resultDescription">
-                                this is an example thing
-                            </div>
-                        </div>
-                    </div>
+                    <div class="searchResults vflex">{searchResults}</div>
                 </div>
                 <div class="pagination">
                     <div class="back">Back</div>
