@@ -63,7 +63,7 @@ const similarity = (s1, s2) => {
     );
 }
 
-const similCutoff = 0.5 // 50%
+const similCutoff = 0.8 // 50%
 
 const doSearch = (query, page) => {
     if (!page) page = 1;
@@ -76,20 +76,27 @@ const doSearch = (query, page) => {
                 strSimil = similarity(tt, query);
             }
             return {
-                title: item.title[0],
-                description: item.description[0],
+                title: item.title,
+                description: item.description[0][0],
                 path: item.path,
                 simil: strSimil,
             };
         })
         .filter((item) => {
-            if (!item.title || !item.description) {
+            if (!item.title || !item.description || item.title.length <= 3) {
                 return false
             }
-            return (
-                item.title.toLowerCase().includes(query.toLowerCase()) ||
-                item.simil >= similCutoff
-            );
+            const lwct = item.title.toLowerCase()
+            const lwcq = query.toLowerCase();
+            const lwcd = item.description.toLowerCase()
+            const exact =
+                lwct.includes(lwcq) ||
+                lwcd.includes(lwcq) ||
+                item.path.includes(lwcq);
+            if (exact) {
+                item.simil += 0.8
+            }
+            return item.simil >= similCutoff;
         }).sort((item) => {
             return item.simil
         });
