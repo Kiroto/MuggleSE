@@ -63,7 +63,8 @@ const similarity = (s1, s2) => {
     );
 }
 
-const similCutoff = 0.8 // 50%
+const similBonus = 0.7
+const similCutoff = 0.5
 
 const doSearch = (query, page) => {
     if (!page) page = 1;
@@ -89,20 +90,15 @@ const doSearch = (query, page) => {
             const lwct = item.title.toLowerCase()
             const lwcq = query.toLowerCase();
             const lwcd = item.description.toLowerCase()
-            const exact =
-                lwct.includes(lwcq) ||
-                lwcd.includes(lwcq) ||
-                item.path.includes(lwcq);
-            if (exact) {
-                item.simil += 0.8
-            }
+            const exactBonus = lwct.includes(lwcq) + lwcd.includes(lwcq) * 0.2 + item.path.includes(lwcq) * 0.5;
+            item.simil += exactBonus * similBonus;
+            
             return item.simil >= similCutoff;
         }).sort((item) => {
             return item.simil
         });
     const pages = Math.ceil(returnedData.length / 20);
     const returnedPage = returnedData.slice(page * 20, page * 20 + 20);
-    console.log(returnedPage);
     return {
         pages: pages,
         results: returnedPage,

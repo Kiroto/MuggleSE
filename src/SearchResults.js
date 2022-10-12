@@ -5,6 +5,7 @@ import "./common.css";
 import Pagination from "./Pagination.js";
 import { Link } from "react-router-dom";
 
+
 class SearchResults extends React.Component {
     constructor(props) {
         super();
@@ -25,26 +26,25 @@ class SearchResults extends React.Component {
                 />
             );
         });
+        const shown = searchResults.length == 0 ? (<div>No results found</div>) : searchResults
         return (
             <div class="vflex fgrow">
                 <div class="topbar"></div>
                 <div class="fgrow">
                     <div class="searchQuery">
-                        <a href="/">
+                        <Link
+                            to={{
+                                pathname: `/`,
+                            }}
+                            className="altop hcenter"
+                        >
                             <span class="multicolorlight sfont smallLogo">
-                                Muggle
+                                Muggle search again
                             </span>
-                        </a>
-                        <input
-                            id="searchBar"
-                            class="querySearch hcenter"
-                            type="text"
-                            placeholder="Let's get searchin'"
-                            onChange={this.handleChange}
-                        />
+                        </Link>
                     </div>
                     <hr />
-                    <div class="searchResults vflex">{searchResults}</div>
+                    <div class="searchResults vflex">{shown}</div>
                 </div>
                 <Pagination
                     maxPages={backendResults.pages}
