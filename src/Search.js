@@ -19,7 +19,7 @@ class Search extends React.Component {
     render() {
         return (
             <div className="vflex fgrow">
-                <div className="hflex topbar">Top Bar</div>
+                <div className="hflex topbar"></div>
                 <div className="vflex fgrow center">
                     <h1 className="albot hcenter">
                         <span className="multicolorlight sfont">Muggle</span>
@@ -35,15 +35,18 @@ class Search extends React.Component {
                     <Link
                         to={{
                             pathname: `/search`,
-                            search: `?q=${this.state.query}`
+                            search: `?q=${this.state.query}`,
                         }}
                         className="button altop hcenter"
                     >
-                        <span className="multicolordark sfont">Muggle</span> Search
+                        <span className="multicolordark sfont">Muggle</span>{" "}
+                        Search
                     </Link>
                     {/* <button id="searchButton" class="altop hcenter"></button> */}
                 </div>
-                <div className="hflex botbar">Bottom bar</div>
+                <div className="hflex botbar">
+                    Muggle search provided by Gente Exitosa ®
+                </div>
             </div>
         );
     }
