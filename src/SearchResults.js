@@ -3,6 +3,7 @@ import SearchResult from "./SearchResult.js";
 import doSearch from "./backend/searchfunctions.js";
 import "./common.css";
 import Pagination from "./Pagination.js";
+import { Link } from "react-router-dom";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class SearchResults extends React.Component {
         const params = new Proxy(new URLSearchParams(window.location.search), {
             get: (searchParams, prop) => searchParams.get(prop),
         });
-        const backendResults = doSearch(params.q, params.p)
+        const backendResults = doSearch(params.q, params.p);
         const searchResults = backendResults.results.map((info, idx) => {
             return (
                 <SearchResult
@@ -39,12 +40,16 @@ class SearchResults extends React.Component {
                             class="querySearch hcenter"
                             type="text"
                             placeholder="Let's get searchin'"
+                            onChange={this.handleChange}
                         />
                     </div>
                     <hr />
                     <div class="searchResults vflex">{searchResults}</div>
                 </div>
-                <Pagination maxPages={backendResults.pages} currentPage={params.p} />
+                <Pagination
+                    maxPages={backendResults.pages}
+                    currentPage={params.p}
+                />
                 <div class="hflex botbar">Bottom bar</div>
             </div>
         );

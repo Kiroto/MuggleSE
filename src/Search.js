@@ -14,7 +14,6 @@ class Search extends React.Component {
 
     handleChange(evt) {
         this.setState({ query: evt.target.value });
-        console.log(this.state.query);
     }
 
     render() {

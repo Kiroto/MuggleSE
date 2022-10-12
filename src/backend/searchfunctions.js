@@ -1,4 +1,4 @@
-import getCsvData from "./Trial"
+const data = require("./scrappedData.json");
 
 /**
  * @typedef {Object} SearchResultInfo
@@ -11,7 +11,7 @@ import getCsvData from "./Trial"
  * @typedef {Object} BackendResults
  * @property {Array<SearchResultInfo>} results an array with contents with the signature {path: string, title: string, description: string}
  * @property {int} pages the number of pages of results found (a page contains 20 results)
-*/
+ */
 
 /**
  *
@@ -19,15 +19,87 @@ import getCsvData from "./Trial"
  * @param {number} page the pagination for that search
  * @return {BackendResults} the results of that backend search
  */
- 
-const doSearch =(query, page) => {
-    if (!page)
-        page = 1;
-    const results = getCsvData(query)
-    return {
-        pages: 1,
-        results: results
-    };
+
+const editDistance = (s1, s2) => {
+    s1 = s1.toLowerCase();
+    s2 = s2.toLowerCase();
+
+    var costs = new Array();
+    for (var i = 0; i <= s1.length; i++) {
+        var lastValue = i;
+        for (var j = 0; j <= s2.length; j++) {
+            if (i == 0) costs[j] = j;
+            else {
+                if (j > 0) {
+                    var newValue = costs[j - 1];
+                    if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                        newValue =
+                            Math.min(Math.min(newValue, lastValue), costs[j]) +
+                            1;
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
+            }
+        }
+        if (i > 0) costs[s2.length] = lastValue;
+    }
+    return costs[s2.length];
 }
+
+const similarity = (s1, s2) => {
+    var longer = s1;
+    var shorter = s2;
+    if (s1.length < s2.length) {
+        longer = s2;
+        shorter = s1;
+    }
+    var longerLength = longer.length;
+    if (longerLength == 0) {
+        return 1.0;
+    }
+    return (
+        (longerLength - editDistance(longer, shorter)) /
+        parseFloat(longerLength)
+    );
+}
+
+const similCutoff = 0.5 // 50%
+
+const doSearch = (query, page) => {
+    if (!page) page = 1;
+    page -= 1;
+    const returnedData = data
+        .map((item) => {
+            const tt = item.title[0]
+            let strSimil = 0;
+            if (tt) {
+                strSimil = similarity(tt, query);
+            }
+            return {
+                title: item.title[0],
+                description: item.description[0],
+                path: item.path,
+                simil: strSimil,
+            };
+        })
+        .filter((item) => {
+            if (!item.title || !item.description) {
+                return false
+            }
+            return (
+                item.title.toLowerCase().includes(query.toLowerCase()) ||
+                item.simil >= similCutoff
+            );
+        }).sort((item) => {
+            return item.simil
+        });
+    const pages = Math.ceil(returnedData.length / 20);
+    const returnedPage = returnedData.slice(page * 20, page * 20 + 20);
+    console.log(returnedPage);
+    return {
+        pages: pages,
+        results: returnedPage,
+    };
+};
 
 export default doSearch;
