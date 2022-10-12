@@ -1,3 +1,5 @@
+import getCsvData from "./Trial"
+
 /**
  * @typedef {Object} SearchResultInfo
  * @property {string} path
@@ -17,34 +19,15 @@
  * @param {number} page the pagination for that search
  * @return {BackendResults} the results of that backend search
  */
-const doSearch = (query, page) => {
-    if (!page) page = 1
-    // TODO: Actually implement the function. This is placeholder data
-    console.log(page)
+ 
+const doSearch =(query, page) => {
+    if (!page)
+        page = 1;
+    const results = getCsvData(query)
     return {
         pages: 1,
-        results: [
-        {
-            path: "https://www.google.com",
-            title: "Google",
-            description: "Look for your website in google!",
-        },
-        {
-            path: "https://www.kongregate.com",
-            title: "Kongregate",
-            description: "Play your favourite flash games!",
-        },
-        {
-            path: "https://www.youtube.com",
-            title: "YouTube",
-            description: "Watch free online videos!",
-        },
-        {
-            path: "https://www.example.com",
-            title: "Example",
-            description: "A website used for examples!",
-        },
-    ]};
-};
+        results: results
+    };
+}
 
 export default doSearch;

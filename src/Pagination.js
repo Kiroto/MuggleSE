@@ -1,5 +1,5 @@
 import React from "react";
-import updateQueryStringParameter from "./utils";
+import updateQueryStringParameter from "./utils.js";
 import "./common.css";
 
 class Pagination extends React.Component {

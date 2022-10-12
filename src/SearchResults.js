@@ -1,8 +1,8 @@
 import React from "react";
-import SearchResult from "./SearchResult";
-import doSearch from "./backend/searchfunctions";
+import SearchResult from "./SearchResult.js";
+import doSearch from "./backend/searchfunctions.js";
 import "./common.css";
-import Pagination from "./Pagination";
+import Pagination from "./Pagination.js";
 
 class SearchResults extends React.Component {
     constructor(props) {
