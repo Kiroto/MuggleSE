@@ -45,7 +45,7 @@ class Search extends React.Component {
                     {/* <button id="searchButton" class="altop hcenter"></button> */}
                 </div>
                 <div className="hflex botbar">
-                    Muggle search provided by Gente Exitosa ®
+                    Tarot Search - Informaticos Informados ®
                 </div>
             </div>
         );

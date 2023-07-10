@@ -83,7 +83,9 @@ class SearchResults extends React.Component {
                     maxPages={this.state.pages}
                     currentPage={params.p}
                 />
-                <div class="hflex botbar">Bottom bar</div>
+                <div class="hflex botbar">
+                    Tarot Search - Informaticos Informados ®
+                </div>
             </div>
         );
     }
