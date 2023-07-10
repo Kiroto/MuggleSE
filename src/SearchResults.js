@@ -8,23 +8,50 @@ import { Link } from "react-router-dom";
 class SearchResults extends React.Component {
     constructor(props) {
         super();
+        this.state = {
+            results: [],
+            pages: 0,
+            currentPage: 1,
+            currentQuery: "",
+        };
     }
 
     render() {
         const params = new Proxy(new URLSearchParams(window.location.search), {
             get: (searchParams, prop) => searchParams.get(prop),
         });
-        const backendResults = doSearch(params.q, params.p);
-        const searchResults = backendResults.results.map((info, idx) => {
-            return (
-                <SearchResult
-                    path={info.path}
-                    title={info.title}
-                    description={info.description}
-                    key={idx}
-                />
-            );
-        });
+        if (
+            params.p != this.state.currentPage ||
+            params.q != this.state.currentQuery
+        ) {
+            doSearch(params.q, params.p).then((data) => {
+                this.setState({
+                    currentPage: params.p,
+                    currentQuery: params.q,
+                    pages: data.pages,
+                    results: data.results.map((info, idx) => {
+                        return (
+                            <SearchResult
+                                path={info.path}
+                                title={info.title}
+                                description={info.description}
+                                key={idx}
+                            />
+                        );
+                    }),
+                });
+            });
+        }
+        // const searchResults = backendResults.results.map((info, idx) => {
+        //     return (
+        //         <SearchResult
+        //             path={info.path}
+        //             title={info.title}
+        //             description={info.description}
+        //             key={idx}
+        //         />
+        //     );
+        // });
         return (
             <div class="vflex fgrow">
                 <div class="topbar"></div>
@@ -32,22 +59,22 @@ class SearchResults extends React.Component {
                     <div class="searchQuery">
                         <a href="/">
                             <span class="multicolorlight sfont smallLogo">
-                                Muggle
+                                Tarot
                             </span>
                         </a>
                         <input
                             id="searchBar"
                             class="querySearch hcenter"
                             type="text"
-                            placeholder="Let's get searchin'"
+                            placeholder="What is thy web destination?"
                             onChange={this.handleChange}
                         />
                     </div>
                     <hr />
-                    <div class="searchResults vflex">{searchResults}</div>
+                    <div class="searchResults vflex">{this.state.results}</div>
                 </div>
                 <Pagination
-                    maxPages={backendResults.pages}
+                    maxPages={this.state.pages}
                     currentPage={params.p}
                 />
                 <div class="hflex botbar">Bottom bar</div>

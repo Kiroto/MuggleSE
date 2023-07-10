@@ -22,24 +22,25 @@ class Search extends React.Component {
                 <div className="hflex topbar">Top Bar</div>
                 <div className="vflex fgrow center">
                     <h1 className="albot hcenter">
-                        <span className="multicolorlight sfont">Muggle</span>
+                        <span className="multicolorlight sfont">Tarot</span>
                     </h1>
                     <input
                         id="query"
                         className="mainSearch hcenter"
                         type="text"
-                        placeholder="Let's get searchin'"
+                        placeholder="What is thy web destination?"
                         value={this.state.query}
                         onChange={this.handleChange}
                     />
                     <Link
                         to={{
                             pathname: `/search`,
-                            search: `?q=${this.state.query}`
+                            search: `?q=${this.state.query}`,
                         }}
                         className="button altop hcenter"
                     >
-                        <span className="multicolordark sfont">Muggle</span> Search
+                        <span className="multicolordark sfont">Tarot</span>{" "}
+                        Search
                     </Link>
                     {/* <button id="searchButton" class="altop hcenter"></button> */}
                 </div>

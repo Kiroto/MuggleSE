@@ -1,9 +1,9 @@
 /* latin */
 @font-face {
-    font-family: "Sofia";
+    font-family: "VT323";
     font-style: normal;
     font-weight: 400;
-    src: url(https://fonts.gstatic.com/s/sofia/v14/8QIHdirahM3j_su5uI0.woff2)
+    src: url(assets/VT323.ttf)
         format("woff2");
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
         U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
@@ -40,7 +40,7 @@ h4 {
 }
 
 .sfont {
-    font-family: "Sofia", sans-serif;
+    font-family: "VT323", sans-serif;
     font-weight: bold;
     font-size: larger;
 }
@@ -70,7 +70,7 @@ input {
     border-radius: 2em;
     border-style: solid;
     border-width: 2px;
-    border-color: #202;
+    border-color: #115;
     padding: 0.5em 1em;
     font-size: larger;
     -webkit-border-radius: 2em;
@@ -78,20 +78,20 @@ input {
     -ms-border-radius: 2em;
     -o-border-radius: 2em;
     transition-duration: 300ms;
-    color: #202;
+    color: #115;
 }
 
 .mainSearch:hover,
 .mainSearch:focus,
 .querySearch:hover,
 .querySearch:focus {
-    background-color: #fef;
+    background-color: #ddf;
     border-color: white;
     transition-duration: 0ms;
 }
 
 .button {
-    background-color: indigo;
+    background-color: #22a;
     color: white;
     padding: 5px 10px;
     border-style: solid;
@@ -107,7 +107,7 @@ input {
 }
 
 .button:hover {
-    border-color: violet;
+    border-color: #5ae;
     border-radius: 20px 5px 20px 5px;
     -webkit-border-radius: 20px 5px 20px 5px;
     -moz-border-radius: 20px 5px 20px 5px;
@@ -121,7 +121,7 @@ input {
 }
 
 .multicolorlight {
-    background-image: linear-gradient(to bottom, violet, purple, indigo, black);
+    background-image: linear-gradient(to bottom, #5ae, #24e, #22a, black);
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
@@ -129,7 +129,7 @@ input {
 }
 
 .multicolordark {
-    background-image: linear-gradient(to bottom, white, rgb(240, 187, 240));
+    background-image: linear-gradient(to bottom, white,#5ae);
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
@@ -163,7 +163,7 @@ input {
 
 .topbar,
 .botbar {
-    background-color: #202;
+    background-color: #115;
     color: white;
     padding: 10px 10px;
 }
@@ -205,11 +205,11 @@ input {
 }
 
 .resultTitle:not(:visited) {
-    color:violet;
+    color:#5ae;
 }
 
 .resultTitle:visited {
-    color:#202;
+    color:#115;
 }
 
 .pagination {
@@ -221,7 +221,7 @@ input {
 
 .page {
     padding: 10px;
-    background-color: #202;
+    background-color: #115;
     color: white;
     border-radius: 7px;
     -webkit-border-radius: 7px;
@@ -233,7 +233,7 @@ input {
 }
 
 .page.current {
-    background-color: indigo;
+    background-color: #22a;
     color: white;
 }
 
@@ -244,12 +244,12 @@ input {
 
 .page.back,
 .page.next {
-    background-color: rgb(76, 0, 130, 0.5);
+    background-color: rgba(0, 104, 130, 0.5);
 
 }
 
 .page.back:hover,
 .page.next:hover {
-    background-color: rgb(76, 0, 130, 0.8);
+    background-color: rgb(0, 104, 130, 0.8);
 
 }
