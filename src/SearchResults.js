@@ -67,7 +67,7 @@ class SearchResults extends React.Component {
                             <span class="multicolorlight sfont smallLogo">
                                 Tarot
                             </span>
-                        </a>
+                        </Link>
                         <input
                             id="searchBar"
                             class="querySearch hcenter"
