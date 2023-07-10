@@ -1,4 +1,4 @@
-// const data = require("./scrappedData.json");
+const data = require("./scrappedData.json");
 
 /**
  * @typedef {Object} SearchResultInfo
@@ -63,143 +63,50 @@ const similarity = (s1, s2) => {
     );
 };
 
-const similCutoff = 0.8; // 50%
+const similBonus = 0.7;
+const similCutoff = 0.5;
 
-const exampleData = {
-    results: [
-        {
-            url: "facebook.com",
-            titulo: "Facebook",
-            descripcion:
-                "Crea una cuenta o inicia sesión en Facebook. Conéctate con amigos, familiares y otras personas que conozcas. Comparte fotos y videos.",
-        },
-        {
-            url: "google.com",
-            titulo: "Google",
-            descripcion:
-                "Busque la información del mundo, incluidas páginas web, imágenes, videos y más. Google tiene muchas características especiales para ayudarlo a encontrar exactamente lo que está buscando.",
-        },
-        {
-            url: "https://www.instagram.com",
-            titulo: "Instagram",
-            descripcion: "Red social para compartir fotos y videos",
-        },
-        {
-            url: "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-            titulo: "Baby Shark Dance | Sing and Dance! | @Baby Shark Official",
-            descripcion:
-                "Baby Shark is here with a fun sing-along and dance video!",
-        },
-        {
-            url: "https://www.youtube.com/watch?v=3tmd-ClpJxA",
-            titulo: "Maroon 5 - Sugar (Official Music Video)",
-            descripcion: 'Official music video for Maroon 5s "Sugar".',
-        },
-        {
-            url: "https://www.youtube.com/watch?v=9bZkp7q19f0",
-            titulo: "PSY - GANGNAM STYLE (?????) M/V",
-            descripcion: '"PSY"s mega-hit "Gangnam Style" music video.',
-        },
-        {
-            url: "https://www.youtube.com/watch?v=CevxZvSJLk8",
-            titulo: "Katy Perry - Roar (Official)",
-            descripcion: 'Official music video for Katy Perrys "Roar".',
-        },
-        {
-            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            titulo: "Rick Astley - Never Gonna Give You Up (Video)",
-            descripcion:
-                "Rick Astley`s official music video for “Never Gonna Give You Up”.",
-        },
-        {
-            url: "https://www.youtube.com/watch?v=fRh_vgS2dFE",
-            titulo: "Ed Sheeran - Shape of You (Official Music Video)",
-            descripcion: 'Official music video for Ed Sheerans "Shape of You".',
-        },
-    ],
-    pages: 9,
-};
-
-const doSearch = (query, page, dataFunction) => {
-    const localurl = "localhost:5241";
-
+const doSearch = (query, page) => {
     if (!page) page = 1;
     page -= 1;
-
-    const searchUrl =
-        `http://${localurl}/buscador/busqueda?q=${query}&page=${page}`;
-
-    const randomUrl = "https://dummyjson.com/products/1";
-
-    const fetchResults = fetch(randomUrl, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((res) => {
-            // if (res.ok) return res.json();
-            return exampleData;
-        })
-        .then((data) => {
-            const results = data["results"];
-            const pages = data["pages"];
-            const builtResults = results.map((item) => {
-                return {
-                    title: item.titulo,
-                    path: item.url,
-                    description: item.descripcion,
-                };
-            });
+    const returnedData = data
+        .map((item) => {
+            const tt = item.title[0];
+            let strSimil = 0;
+            if (tt) {
+                strSimil = similarity(tt, query);
+            }
             return {
-                pages: pages,
-                results: builtResults,
+                title: item.title,
+                description: item.description[0][0],
+                path: item.path,
+                simil: strSimil,
             };
         })
-        .catch((err) => {
-            console.log(err);
+        .filter((item) => {
+            if (!item.title || !item.description || item.title.length <= 3) {
+                return false;
+            }
+            const lwct = item.title.toLowerCase();
+            const lwcq = query.toLowerCase();
+            const lwcd = item.description.toLowerCase();
+            const exactBonus =
+                lwct.includes(lwcq) +
+                lwcd.includes(lwcq) * 0.2 +
+                item.path.includes(lwcq) * 0.5;
+            item.simil += exactBonus * similBonus;
+
+            return item.simil >= similCutoff;
+        })
+        .sort((item) => {
+            return item.simil;
         });
-    return fetchResults;
-    // const returnedData = data
-    //     .map((item) => {
-    //         const tt = item.title[0]
-    //         let strSimil = 0;
-    //         if (tt) {
-    //             strSimil = similarity(tt, query);
-    //         }
-    //         return {
-    //             title: item.title,
-    //             description: item.description[0][0],
-    //             path: item.path,
-    //             simil: strSimil,
-    //         };
-    //     })
-    //     .filter((item) => {
-    //         if (!item.title || !item.description || item.title.length <= 3) {
-    //             return false
-    //         }
-    //         const lwct = item.title.toLowerCase()
-    //         const lwcq = query.toLowerCase();
-    //         const lwcd = item.description.toLowerCase()
-    //         const exact =
-    //             lwct.includes(lwcq) ||
-    //             lwcd.includes(lwcq) ||
-    //             item.path.includes(lwcq);
-    //         if (exact) {
-    //             item.simil += 0.8
-    //         }
-    //         return item.simil >= similCutoff;
-    //     }).sort((item) => {
-    //         return item.simil
-    //     });
-    // const pages = Math.ceil(returnedData.length / 20);
-    // const returnedPage = returnedData.slice(page * 20, page * 20 + 20);
-    // console.log(returnedPage);
-    // return {
-    //     pages: pages,
-    //     results: returnedPage,
-    // };
+    const pages = Math.ceil(returnedData.length / 20);
+    const returnedPage = returnedData.slice(page * 20, page * 20 + 20);
+    return {
+        pages: pages,
+        results: returnedPage,
+    };
 };
 
 export default doSearch;
