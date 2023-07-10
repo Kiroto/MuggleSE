@@ -5,6 +5,7 @@ import "./common.css";
 import Pagination from "./Pagination.js";
 import { Link } from "react-router-dom";
 
+
 class SearchResults extends React.Component {
     constructor(props) {
         super();
@@ -57,7 +58,12 @@ class SearchResults extends React.Component {
                 <div class="topbar"></div>
                 <div class="fgrow">
                     <div class="searchQuery">
-                        <a href="/">
+                        <Link
+                            to={{
+                                pathname: `/`,
+                            }}
+                            className="altop hcenter"
+                        >
                             <span class="multicolorlight sfont smallLogo">
                                 Tarot
                             </span>
