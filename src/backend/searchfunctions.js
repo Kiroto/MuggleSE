@@ -129,7 +129,9 @@ const doSearch = (query, page, dataFunction) => {
     const searchUrl =
         `http://${localurl}/buscador/busqueda?q=${query}&page=${page}`;
 
-    const fetchResults = fetch(searchUrl, {
+    const randomUrl = "https://dummyjson.com/products/1";
+
+    const fetchResults = fetch(randomUrl, {
         method: "GET",
         mode: "cors",
         headers: {
@@ -137,7 +139,7 @@ const doSearch = (query, page, dataFunction) => {
         },
     })
         .then((res) => {
-            if (res.ok) return res.json();
+            // if (res.ok) return res.json();
             return exampleData;
         })
         .then((data) => {

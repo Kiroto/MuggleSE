@@ -8,7 +8,8 @@ class SearchResult extends React.Component {
     }
     render() {
         const basePath = this.state.path
-        const bits = basePath.substring(basePath.indexOf("/")+2).split("/").join(" > ")
+        
+        const bits = !basePath.startsWith("http") ? [basePath]: basePath.substring(basePath.indexOf("/")+2).split("/").join(" > ")
         return (
             <div class="result">
                 <div class="resultUrl">

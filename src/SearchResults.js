@@ -76,7 +76,6 @@ class SearchResults extends React.Component {
                             onChange={this.handleChange}
                         />
                     </div>
-                    <hr />
                     <div class="searchResults vflex">{this.state.results}</div>
                 </div>
                 <Pagination

@@ -14,6 +14,29 @@ body {
     font-family: "Verdana";
 }
 
+#root {
+    background-image: linear-gradient(
+        25deg,
+        #fff 0%,
+        #eef 50%,
+        #fff 100%
+    );
+}
+
+#query {
+      box-shadow: 0 0 40px 40px #fff8;
+
+}
+
+.searchQuery {
+    background-color: #fff;
+    padding: 10px;
+    border-width: 0px;
+    border-bottom-width: 5px;
+    border-bottom: #115;
+    border-style: solid;
+}
+
 *:link {
     text-decoration: none;
 }
